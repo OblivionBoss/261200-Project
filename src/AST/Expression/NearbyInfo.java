@@ -2,8 +2,7 @@ package AST.Expression;
 
 import AST.ENUM.Direction;
 import ErrorExcep.EvalError;
-
-import java.util.Map;
+import Model.Player;
 
 public class NearbyInfo implements Expression{
     private Direction direction;
@@ -12,7 +11,7 @@ public class NearbyInfo implements Expression{
         this.direction = direction;
     }
 
-    public double eval(Map<String, Double> bindings) throws EvalError {
+    public double eval(Player player) throws EvalError {
         return 0;
     }
 

@@ -1,8 +1,8 @@
 package AST.Statement;
 
-import AST.Expression.*;
+import AST.Expression.Expression;
 import ErrorExcep.EvalError;
-import java.util.Map;
+import Model.Player;
 
 public class WhileStatement implements Statement {
     private Expression condition;
@@ -20,11 +20,11 @@ public class WhileStatement implements Statement {
         this.statement.prettyPrint(s);
     }
 
-    public boolean eval(Map<String, Double> bindings) throws EvalError {
-        double e = this.condition.eval(bindings);
+    public boolean eval(Player player) throws EvalError {
+        double e = this.condition.eval(player);
         for (int counter = 0; counter < 10000 && e > 0; counter++) {
-            if(!this.statement.eval(bindings)) return false;
-            e = this.condition.eval(bindings);
+            if(!this.statement.eval(player)) return false;
+            e = this.condition.eval(player);
         }
         return true;
     }

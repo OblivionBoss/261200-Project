@@ -1,9 +1,11 @@
 package AST;
 
-import AST.Statement.*;
-import ErrorExcep.*;
+import AST.Statement.Statement;
+import ErrorExcep.EvalError;
+import ErrorExcep.SyntaxError;
+import Model.Player;
+
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 
 public class Plan implements Node{
@@ -29,9 +31,9 @@ public class Plan implements Node{
         }
     }
 
-    public void eval(Map<String, Double> bindings) throws EvalError {
+    public void eval(Player player) throws EvalError {
         while (!this.statementQueue.isEmpty()){
-            if(!this.statementQueue.remove().eval(bindings)) return;
+            if(!this.statementQueue.remove().eval(player)) return;
         }
     }
 }

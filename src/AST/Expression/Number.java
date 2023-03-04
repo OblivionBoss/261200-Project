@@ -1,6 +1,6 @@
 package AST.Expression;
 
-import java.util.Map;
+import Model.Player;
 
 public class Number implements Expression {
     private final long valLong;
@@ -9,7 +9,7 @@ public class Number implements Expression {
         this.valLong = val;
     }
 
-    public double eval(Map<String, Double> bindings) {
+    public double eval(Player player) {
         return valLong;
     }
 

@@ -2,7 +2,7 @@ package AST.Statement;
 
 import AST.Expression.Expression;
 import ErrorExcep.EvalError;
-import java.util.Map;
+import Model.Player;
 
 public class IfStatement implements Statement {
     private Expression condition;
@@ -23,11 +23,11 @@ public class IfStatement implements Statement {
         this.Else.prettyPrint(s);
     }
 
-    public boolean eval(Map<String, Double> bindings) throws EvalError {
-        if(this.condition.eval(bindings) > 0){
-            if(!this.then.eval(bindings)) return false;
+    public boolean eval(Player player) throws EvalError {
+        if(this.condition.eval(player) > 0){
+            if(!this.then.eval(player)) return false;
         }else{
-            if(!this.Else.eval(bindings)) return false;
+            if(!this.Else.eval(player)) return false;
         }
         return true;
     }

@@ -1,23 +1,26 @@
-import AST.*;
-import AST.ENUM.*;
-import AST.Expression.*;
+import AST.ENUM.Command;
+import AST.ENUM.Direction;
+import AST.Expression.BinaryArithExpr;
+import AST.Expression.Identifier;
 import AST.Expression.Number;
+import AST.Plan;
 import AST.Statement.*;
-import ErrorExcep.*;
-import Parser.*;
-import Tokenizer.*;
-import java.util.*;
+import ErrorExcep.EvalError;
+import ErrorExcep.SyntaxError;
+import Model.Player;
+import Model.Territory;
+import Parser.ExprParser;
+import Parser.Parser;
+import Parser.StatementParser;
+import Tokenizer.Tokenizer;
 
 public class Main {
-    public static boolean isDigit(char c){
-    return '0'<=c && c<='9';
-}
     public static void main(String[] args) throws EvalError, SyntaxError {
-        Map<String, Double> b = new HashMap<>();
-        b.put("budget",0d);
-        b.put("deposit",0d);
+        Territory territory = new Territory(5,5,1,100);
         Plan p = new Plan();
-        Identifier v = new Identifier("t",b);
+        Player player = new Player();
+        player.cityCrew = territory.territory[3][3];
+        Identifier v = new Identifier("t");
         Statement st1 = new AssignStatement(v,new BinaryArithExpr(v,"+",new Number(1)));
         Statement st2 = new AssignStatement(new Identifier("m"),new Number(0));
         BlockStatement sb1 = new BlockStatement();
@@ -32,8 +35,8 @@ public class Main {
         StringBuilder s = new StringBuilder();
         p.prettyPrint(s);
         System.out.println(s);
-        p.eval(b);
-        System.out.println(b.get("m"));
+        p.eval(player);
+        System.out.println(player.variableSet.get("t"));
 
         Tokenizer t1 = new Tokenizer("t = t + 1  # keeping track of the turn number\n" +
                 "m = 0  # number of random moves\n" +
@@ -106,5 +109,11 @@ public class Main {
         StringBuilder a3 = new StringBuilder();
         p3.parse().prettyPrint(a3);
         System.out.println(a1.toString().hashCode()+" "+a2.toString().hashCode()+" "+a3.toString().hashCode());
+
+        Tokenizer t4 = new Tokenizer("4^3^2");
+        ExprParser p4 = new ExprParser(t4);
+        StringBuilder a4 = new StringBuilder();
+        p4.parse().prettyPrint(a4);
+        System.out.println(a4);
     }
 }

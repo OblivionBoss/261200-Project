@@ -1,8 +1,9 @@
 package AST.Statement;
 
 import ErrorExcep.EvalError;
+import Model.Player;
+
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Queue;
 
 public class BlockStatement implements Statement {
@@ -30,9 +31,9 @@ public class BlockStatement implements Statement {
         s.append("}");
     }
 
-    public boolean eval(Map<String, Double> bindings) throws EvalError {
+    public boolean eval(Player player) throws EvalError {
         while (!this.statementQueue.isEmpty()){
-            if(!this.statementQueue.remove().eval(bindings)) return false;
+            if(!this.statementQueue.remove().eval(player)) return false;
         }
         return true;
     }

@@ -1,13 +1,12 @@
 package AST.Expression;
 
 import ErrorExcep.EvalError;
-
-import java.util.Map;
+import Model.Player;
 
 public class OpponentInfo implements Expression{
     public OpponentInfo() {};
 
-    public double eval(Map<String, Double> bindings) throws EvalError {
+    public double eval(Player player) throws EvalError {
         return 0;
     }
 

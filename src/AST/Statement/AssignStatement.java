@@ -1,10 +1,12 @@
 package AST.Statement;
 
-import AST.Expression.*;
+import AST.Expression.Expression;
+import AST.Expression.Identifier;
 import ErrorExcep.EvalError;
-import java.util.Map;
+import Model.Player;
 
 public class AssignStatement implements Statement {
+    private static final String[] specialVar = {"rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random"};
     private Identifier variable;
     private Expression expression;
 
@@ -19,13 +21,12 @@ public class AssignStatement implements Statement {
         this.expression.prettyPrint(s);
     }
 
-    public boolean eval(Map<String, Double> bindings) throws EvalError {
+    public boolean eval(Player player) throws EvalError {
         String var = this.variable.getName();
-        String[] specialVar = {"rows","cols","currow","curcol","budget","deposit","int","maxdeposit","random"};
         for(String sv : specialVar){
             if(var.equals(sv)) return true;
         }
-        bindings.put(var, this.expression.eval(bindings));
+        player.variableSet.put(var, this.expression.eval(player));
         return true;
     }
 }

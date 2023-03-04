@@ -1,7 +1,7 @@
 package Parser;
 
-import AST.Expression.*;
 import AST.Expression.Number;
+import AST.Expression.*;
 import ErrorExcep.SyntaxError;
 import Tokenizer.Tokenizer;
 
@@ -49,12 +49,13 @@ public class ExprParser extends StatementParser implements Parser{
     }
 
     private Expression parseFactor() throws SyntaxError {
-        Expression e = parsePower();
-        while (tkz.peek("^")){
+        Expression p = parsePower();
+        if (tkz.peek("^")){
             tkz.consume();
-            e = new BinaryArithExpr(e,"^",parsePower());
+            Expression f = parseFactor();
+            return new BinaryArithExpr(p,"^",f);
         }
-        return e;
+        return p;
     }
 
     private Expression parsePower() throws SyntaxError {

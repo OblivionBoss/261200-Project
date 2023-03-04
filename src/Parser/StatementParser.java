@@ -1,16 +1,23 @@
 package Parser;
 
-import AST.*;
-import AST.ENUM.*;
-import AST.Expression.*;
+import AST.ENUM.Command;
+import AST.ENUM.Direction;
+import AST.Expression.Expression;
+import AST.Expression.Identifier;
+import AST.Node;
+import AST.Plan;
 import AST.Statement.*;
 import ErrorExcep.SyntaxError;
 import Tokenizer.Tokenizer;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 public class StatementParser implements Parser{
     protected final Tokenizer tkz;
+    private static final String[] reservedWords = {"collect", "done", "down", "downleft", "downright", "else", "if",
+            "invest", "move", "nearby", "opponent", "relocate", "shoot", "then", "up", "upleft", "upright", "while"};
     private SyntaxError syntaxError_Direction = new SyntaxError("Expected Direction");
     private SyntaxError syntaxError_Command = new SyntaxError("Expected Command");
     protected SyntaxError syntaxError_identifier = new SyntaxError("Illegal Variable");
@@ -20,12 +27,12 @@ public class StatementParser implements Parser{
     }
 
     public Node parse() throws SyntaxError {
-        Plan p = new Plan();
+        Queue<Statement> p = new LinkedList<>();
         if(!tkz.hasNextToken()) throw new SyntaxError("construction plan is empty");
-        while (tkz.hasNextToken()){
+        while (tkz.hasNextToken()) {
             p.add(parseStatement());
         }
-        return p;
+        return new Plan(p);
     }
 
     private Statement parseStatement() throws SyntaxError{
@@ -57,13 +64,13 @@ public class StatementParser implements Parser{
     }
 
     private BlockStatement parseBlock() throws SyntaxError {
+        Queue<Statement> b = new LinkedList<>();
         tkz.consume("{");
-        BlockStatement b = new BlockStatement();
         while (!tkz.peek("}")){
             b.add(parseStatement());
         }
         tkz.consume("}");
-        return b;
+        return new BlockStatement(b);
     }
 
     private Statement parseCommand() throws SyntaxError{
@@ -125,6 +132,9 @@ public class StatementParser implements Parser{
         for(int i=1 ; i<identifier.length() ; i++){
             char c = identifier.charAt(i);
             if(!isChar(c) && !isDigit(c)) return false;
+        }
+        for(String rv : reservedWords){
+            if(identifier.equals(rv)) return false;
         }
         return true;
     }
