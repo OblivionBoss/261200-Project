@@ -27,7 +27,7 @@ public class StatementParser implements Parser{
     }
 
     public Node parse() throws SyntaxError {
-        Queue<Statement> p = new LinkedList<>();
+        LinkedList<Statement> p = new LinkedList<>();
         if(!tkz.hasNextToken()) throw new SyntaxError("construction plan is empty");
         while (tkz.hasNextToken()) {
             p.add(parseStatement());
@@ -64,7 +64,7 @@ public class StatementParser implements Parser{
     }
 
     private BlockStatement parseBlock() throws SyntaxError {
-        Queue<Statement> b = new LinkedList<>();
+        LinkedList<Statement> b = new LinkedList<>();
         tkz.consume("{");
         while (!tkz.peek("}")){
             b.add(parseStatement());

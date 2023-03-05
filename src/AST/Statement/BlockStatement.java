@@ -4,36 +4,35 @@ import ErrorExcep.EvalError;
 import Model.Player;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class BlockStatement implements Statement {
-    private Queue<Statement> statementQueue;
+    private LinkedList<Statement> statementList;
 
-    public BlockStatement(Queue<Statement> queue){
-        this.statementQueue = queue;
+    public BlockStatement(LinkedList<Statement> list){
+        this.statementList = list;
     }
 
     public BlockStatement() {
-        this.statementQueue = new LinkedList<>();
+        this.statementList = new LinkedList<>();
     }
 
     public void add(Statement statement){
-        this.statementQueue.add(statement);
+        this.statementList.add(statement);
     }
 
     public void prettyPrint(StringBuilder s) {
         s.append("{");
-        for (Statement statement : this.statementQueue){
+        for (Statement statement : this.statementList){
             s.append("\n");
             statement.prettyPrint(s);
         }
-        if(!this.statementQueue.isEmpty()) s.append("\n");
+        if(!this.statementList.isEmpty()) s.append("\n");
         s.append("}");
     }
 
     public boolean eval(Player player) throws EvalError {
-        while (!this.statementQueue.isEmpty()){
-            if(!this.statementQueue.remove().eval(player)) return false;
+        for (Statement statement : this.statementList){
+            if(!statement.eval(player)) return false;
         }
         return true;
     }

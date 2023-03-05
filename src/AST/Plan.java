@@ -6,34 +6,33 @@ import ErrorExcep.SyntaxError;
 import Model.Player;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Plan implements Node{
-    private Queue<Statement> statementQueue;
+    private LinkedList<Statement> statementList;
 
-    public Plan(Queue<Statement> queue) throws SyntaxError {
-        if(queue.isEmpty()) throw new SyntaxError("construction plan is empty");
-        this.statementQueue = queue;
+    public Plan(LinkedList<Statement> list) throws SyntaxError {
+        if(list.isEmpty()) throw new SyntaxError("construction plan is empty");
+        this.statementList = list;
     }
 
     public Plan() {
-        this.statementQueue = new LinkedList<>();
+        this.statementList = new LinkedList<>();
     }
 
     public void add(Statement statement){
-        this.statementQueue.add(statement);
+        this.statementList.add(statement);
     }
 
     public void prettyPrint(StringBuilder s) {
-        for (Statement statement : this.statementQueue){
+        for (Statement statement : this.statementList){
             statement.prettyPrint(s);
             s.append("\n");
         }
     }
 
     public void eval(Player player) throws EvalError {
-        while (!this.statementQueue.isEmpty()){
-            if(!this.statementQueue.remove().eval(player)) return;
+        for (Statement statement : this.statementList){
+            if(!statement.eval(player)) return;
         }
     }
 }
