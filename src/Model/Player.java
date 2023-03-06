@@ -3,14 +3,21 @@ package Model;
 import AST.Plan;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Player {
     private Plan construction_Plan;
-    public Map<String, Double> variableSet = new HashMap<>();
-    private Region cityCenter;
+    public final Map<String, Double> variableSet;
+    public final HashSet<Region> regionSet;
+    public Region cityCenter;
     public Region cityCrew;
     private double budget;
+
+    public Player(){
+        this.variableSet = new HashMap<>();
+        this.regionSet = new HashSet<>();
+    }
 
     public Region getCityCenter(){
         return cityCenter;
@@ -26,5 +33,9 @@ public class Player {
 
     public void subBudget(double n){
         budget = Math.max(0,budget-n);
+    }
+
+    public void loseGame(){
+
     }
 }

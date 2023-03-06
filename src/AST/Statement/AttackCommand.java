@@ -28,17 +28,12 @@ public class AttackCommand implements Statement {
 
         double attackCost = this.expression.eval(player);
         if(player.getBudget()<attackCost) return true;
+        player.subBudget(attackCost);
 
-        Region target;
-        int dir = this.direction.ordinal()+1;
-        if (dir==1) target = player.cityCrew.up;
-        else if (dir==2) target = player.cityCrew.upright;
-        else if (dir==3) target = player.cityCrew.downright;
-        else if (dir==4) target = player.cityCrew.down;
-        else if (dir==5) target = player.cityCrew.downleft;
-        else target = player.cityCrew.upleft;
-
-
+        Region target = player.cityCrew.gotoDirection(this.direction);
+        if(target.owner == null) return true;
+        target.subDeposit(attackCost);
+        if(target.getDeposit()<1) target.loseRegion(player);
         return true;
     }
 }

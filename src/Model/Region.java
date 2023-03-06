@@ -50,6 +50,13 @@ public class Region extends Territory{
         else  return this.upleft;
     }
 
+    public void loseRegion(Player player){
+        if(!player.regionSet.contains(this)) return;
+        this.owner = null;
+        player.regionSet.remove(this);
+        if(player.cityCenter.equals(this)) player.loseGame();
+    }
+
     private void calculateInterest(){
         if(owner != null){
             deposit += deposit*this.getInterestRate()/100;
