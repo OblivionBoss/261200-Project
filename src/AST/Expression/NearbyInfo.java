@@ -3,6 +3,7 @@ package AST.Expression;
 import AST.ENUM.Direction;
 import ErrorExcep.EvalError;
 import Model.Player;
+import Model.Region;
 
 public class NearbyInfo implements Expression{
     private Direction direction;
@@ -12,6 +13,14 @@ public class NearbyInfo implements Expression{
     }
 
     public double eval(Player player) throws EvalError {
+        Region current = player.cityCrew;
+        double distance = 0;
+        while (current.gotoDirection(this.direction) != null) {
+            distance++;
+            current = current.gotoDirection(this.direction);
+            if(current.owner != null && current.owner != player)
+                return 100*distance + Math.floor(Math.log10(current.getDeposit()));
+        }
         return 0;
     }
 
