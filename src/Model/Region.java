@@ -1,5 +1,7 @@
 package Model;
 
+import AST.ENUM.Direction;
+
 public class Region extends Territory{
     private int row,col;
     public Player owner = null;
@@ -37,6 +39,15 @@ public class Region extends Territory{
 
     public double getMaxDeposit(){
         return super.maxDeposit;
+    }
+
+    public Region gotoDirection(Direction dir){
+        if (dir.equals(Direction.up)) return this.up;
+        else if (dir.equals(Direction.upright)) return this.upright;
+        else if (dir.equals(Direction.downright)) return this.downright;
+        else if (dir.equals(Direction.down)) return this.down;
+        else if (dir.equals(Direction.downleft))  return this.downleft;
+        else  return this.upleft;
     }
 
     private void calculateInterest(){
