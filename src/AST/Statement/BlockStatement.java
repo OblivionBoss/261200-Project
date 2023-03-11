@@ -1,7 +1,7 @@
 package AST.Statement;
 
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 import java.util.LinkedList;
 
@@ -10,14 +10,6 @@ public class BlockStatement implements Statement {
 
     public BlockStatement(LinkedList<Statement> list){
         this.statementList = list;
-    }
-
-    public BlockStatement() {
-        this.statementList = new LinkedList<>();
-    }
-
-    public void add(Statement statement){
-        this.statementList.add(statement);
     }
 
     public void prettyPrint(StringBuilder s) {
