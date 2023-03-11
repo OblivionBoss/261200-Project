@@ -3,8 +3,8 @@ package AST.Statement;
 import AST.ENUM.Direction;
 import AST.Expression.Expression;
 import ErrorExcep.EvalError;
-import Model.Player;
-import Model.Region;
+import GameState.Player;
+import GameState.Region;
 
 public class AttackCommand implements Statement {
     private Direction direction;
@@ -23,17 +23,17 @@ public class AttackCommand implements Statement {
     }
 
     public boolean eval(Player player) throws EvalError {
-        if(player.getBudget()<1) return true;
-        player.subBudget(1);
+        if(player.getBudget() < player.territory().FEE_CHARGE()) return true;
+        player.subBudget(player.territory().FEE_CHARGE());
 
         double attackCost = this.expression.eval(player);
-        if(player.getBudget()<attackCost) return true;
+        if(player.getBudget() < attackCost) return true;
         player.subBudget(attackCost);
 
         Region target = player.cityCrew.gotoDirection(this.direction);
         if(target.owner == null) return true;
         target.subDeposit(attackCost);
-        if(target.getDeposit()<1) target.loseRegion(player);
+        if(target.getDeposit() < 1) target.loseRegion(player);
         return true;
     }
 }
