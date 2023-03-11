@@ -1,7 +1,7 @@
 package AST.Expression;
 
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 public class BinaryArithExpr implements Expression {
     private Expression left,right;
@@ -29,14 +29,17 @@ public class BinaryArithExpr implements Expression {
         else if(op.equals("-")) return leftValue - rightValue;
         else if(op.equals("*")) return leftValue * rightValue;
         else if(op.equals("/")){
-            if (rightValue == 0) throw new ArithmeticException("/ by zero");
+            if (rightValue == 0) return 0;
+                // throw new ArithmeticException("/ by zero");
             return Math.floor(leftValue/rightValue);
         }
         else if(op.equals("%")){
-            if (rightValue == 0) throw new ArithmeticException("% by zero");
+            if (rightValue == 0) return 0;
+                // throw new ArithmeticException("% by zero");
             return leftValue % rightValue;
         }else if(op.equals("^")){
-            if (rightValue == 0 && leftValue == 0) throw new ArithmeticException("0^0 undefined");
+            if (rightValue == 0 && leftValue == 0) return 1;
+                // throw new ArithmeticException("0^0 undefined");
             return Math.floor(Math.pow(leftValue,rightValue));
         }
         throw new EvalError("unknown op -> " + op);

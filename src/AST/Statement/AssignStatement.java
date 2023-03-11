@@ -3,7 +3,7 @@ package AST.Statement;
 import AST.Expression.Expression;
 import AST.Expression.Identifier;
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 public class AssignStatement implements Statement {
     private static final String[] specialVar = {"rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random"};

@@ -1,6 +1,6 @@
 package AST.Expression;
 
-import Model.Player;
+import GameState.Player;
 
 public class Number implements Expression {
     private final long valLong;

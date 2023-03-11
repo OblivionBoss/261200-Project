@@ -1,4 +1,4 @@
-package Model;
+package GameState;
 
 import AST.Plan;
 
@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 public class Player {
+    private Territory territory;
     private Plan construction_Plan;
     public final Map<String, Double> variableSet;
     public final HashSet<Region> regionSet;
@@ -14,9 +15,16 @@ public class Player {
     public Region cityCrew;
     private double budget;
 
-    public Player(){
+    public Player(Territory territory, Region cityCenter, double initBudget){
         this.variableSet = new HashMap<>();
         this.regionSet = new HashSet<>();
+        this.territory = territory;
+        this.cityCrew = this.cityCenter = cityCenter;
+        this.budget = initBudget;
+    }
+
+    public Territory territory(){
+        return territory;
     }
 
     public Region getCityCenter(){
@@ -36,6 +44,8 @@ public class Player {
     }
 
     public void loseGame(){
-
+        for(Region region : regionSet)
+            region.owner = null;
+        regionSet.clear();
     }
 }

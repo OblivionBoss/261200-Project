@@ -1,8 +1,8 @@
-package Model;
+package GameState;
 
 import AST.ENUM.Direction;
 
-public class Region extends Territory{
+public class Region extends Territory {
     private int row,col;
     public Player owner = null;
     public Region up = null, upright = null, downright = null, down = null, downleft = null, upleft = null;
@@ -18,7 +18,7 @@ public class Region extends Territory{
     }
 
     public void addDeposit(double n){
-        deposit = Math.min(super.maxDeposit,deposit+n);
+        deposit = Math.min(super.MAX_DEPOSIT(),deposit+n);
     }
 
     public void subDeposit(double n){
@@ -35,10 +35,6 @@ public class Region extends Territory{
 
     public double getInterestRate(){
         return super.baseInterestRate*Math.log10(deposit)*Math.log(super.turn);
-    }
-
-    public double getMaxDeposit(){
-        return super.maxDeposit;
     }
 
     public Region gotoDirection(Direction dir){
@@ -60,7 +56,7 @@ public class Region extends Territory{
     private void calculateInterest(){
         if(owner != null){
             deposit += deposit*this.getInterestRate()/100;
-            if(deposit > super.maxDeposit) deposit = super.maxDeposit;
+            if(deposit > super.MAX_DEPOSIT()) deposit = super.MAX_DEPOSIT();
         }
     }
 }

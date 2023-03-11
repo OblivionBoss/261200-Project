@@ -1,9 +1,12 @@
-package Model;
+package GameState;
 
-import java.util.ArrayList;
+import GameState.Region;
 
 public class Territory {
-    protected long maxDeposit;
+    private long FEE_CHARGE = 1;
+    private long TERRITORY_ROW = 1;
+    private long TERRITORY_COL = 1;
+    private long MAX_DEPOSIT;
     protected double baseInterestRate;
     protected int turn = 1;
     public Region[][] territory;
@@ -11,6 +14,8 @@ public class Territory {
     public Territory() {}
 
     public Territory(int m,int n,int interest_pct,int max_dep){
+        TERRITORY_ROW = m;
+        TERRITORY_COL = n;
         territory = new Region[m][n];
         for (int i=1 ; i<=m ; i++){
             for (int j=1 ; j<=n ; j++){
@@ -37,6 +42,22 @@ public class Territory {
             }
         }
         baseInterestRate = interest_pct;
-        maxDeposit = max_dep;
+        MAX_DEPOSIT = max_dep;
+    }
+
+    public long TERRITORY_ROW(){
+        return TERRITORY_ROW;
+    }
+
+    public long TERRITORY_COL(){
+        return TERRITORY_COL;
+    }
+
+    public long FEE_CHARGE(){
+        return FEE_CHARGE;
+    }
+
+    public long MAX_DEPOSIT(){
+        return MAX_DEPOSIT;
     }
 }

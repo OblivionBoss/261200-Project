@@ -2,7 +2,7 @@ package AST.Statement;
 
 import AST.Node;
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 public interface Statement extends Node {
     boolean eval(Player player) throws EvalError;
