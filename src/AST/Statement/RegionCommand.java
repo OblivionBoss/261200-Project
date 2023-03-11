@@ -3,7 +3,7 @@ package AST.Statement;
 import AST.ENUM.Command;
 import AST.Expression.Expression;
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 public class RegionCommand implements Statement {
     private Command action;
@@ -24,22 +24,22 @@ public class RegionCommand implements Statement {
 
     public boolean eval(Player player) throws EvalError {
         if(action.equals(Command.invest)){ // invest command
-            if(player.getBudget()<1) return true;
-            player.subBudget(1);
+            if(player.getBudget() < player.territory().FEE_CHARGE()) return false;
+            player.subBudget(player.territory().FEE_CHARGE());
 
             double cost = this.expression.eval(player);
-            if(player.getBudget()<cost) return true;
+            if(player.getBudget() < cost) return true;
             player.cityCrew.owner = player;
             player.cityCrew.addDeposit(cost);
             player.subBudget(cost);
         }else{ // collect command
-            if(player.getBudget()<1) return false;
-            player.subBudget(1);
+            if(player.getBudget() < player.territory().FEE_CHARGE()) return false;
+            player.subBudget(player.territory().FEE_CHARGE());
 
             double withdraw = this.expression.eval(player);
-            if(player.cityCrew.getDeposit()<withdraw) return true;
+            if(player.cityCrew.getDeposit() < withdraw) return true;
             player.cityCrew.subDeposit(withdraw);
-            if(player.cityCrew.getDeposit()==0) player.cityCrew.owner = null;
+            if(player.cityCrew.getDeposit() < 1) player.cityCrew.loseRegion(player);
             player.addBudget(withdraw);
         }
         return true;
