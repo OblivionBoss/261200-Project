@@ -2,7 +2,7 @@ package AST.Statement;
 
 import AST.Expression.Expression;
 import ErrorExcep.EvalError;
-import Model.Player;
+import GameState.Player;
 
 public class WhileStatement implements Statement {
     private Expression condition;
