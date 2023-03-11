@@ -1,7 +1,7 @@
 package AST.Statement;
 
 import AST.ENUM.Command;
-import Model.Player;
+import GameState.Player;
 
 public class ActionCommand implements Statement {
     private Command action;
@@ -14,17 +14,20 @@ public class ActionCommand implements Statement {
     }
 
     public boolean eval(Player player){
-        if(action.equals(Command.done)){ // done command
-            return false;
-        }else{ // relocate command
-            int minDistance = 0;
-            int ccx = player.getCityCenter().getRow(); //CityCenterX
-            int ccy = player.getCityCenter().getCol(); //CityCenterY
+        if(action.equals(Command.relocate)){ // relocate command
+            int ccx = player.cityCenter.getRow(); //CityCenterX
+            int ccy = player.cityCenter.getCol(); //CityCenterY
             int newCCX = player.cityCrew.getRow();
             int newCCY = player.cityCrew.getCol();
-            if(ccx == newCCX) minDistance = Math.abs(ccy-newCCY);
-            else if(ccy == newCCY) minDistance = Math.abs(ccx-newCCX);
-        }
+            int r = ccx - (ccy - ccy % 2) / 2;
+            int newR = newCCX - (newCCY - newCCY % 2) / 2;
+            int minDistance = (Math.abs(newCCY - ccy) + Math.abs(newR - r) + Math.abs((-newCCY-newR) + (ccy + r))) / 2;
+            double cost = 5 * minDistance + 10;
+            if(player.getBudget() >= cost && player.cityCrew.owner == player){
+                player.subBudget(cost);
+                player.cityCenter = player.cityCrew;
+            }
+        } // done command
         return false;
     }
 }
