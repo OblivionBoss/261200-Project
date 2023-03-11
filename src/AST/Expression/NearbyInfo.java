@@ -2,8 +2,8 @@ package AST.Expression;
 
 import AST.ENUM.Direction;
 import ErrorExcep.EvalError;
-import Model.Player;
-import Model.Region;
+import GameState.Player;
+import GameState.Region;
 
 public class NearbyInfo implements Expression{
     private Direction direction;
