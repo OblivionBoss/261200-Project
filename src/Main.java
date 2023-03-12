@@ -1,25 +1,43 @@
-import AST.ENUM.Command;
 import AST.ENUM.Direction;
-import AST.Expression.BinaryArithExpr;
-import AST.Expression.Identifier;
-import AST.Expression.Number;
-import AST.Plan;
 import AST.Statement.*;
 import ErrorExcep.EvalError;
 import ErrorExcep.SyntaxError;
-import Model.Player;
-import Model.Territory;
-import Parser.ExprParser;
-import Parser.Parser;
-import Parser.StatementParser;
-import Tokenizer.Tokenizer;
+import GameState.Player;
+import GameState.Region;
+import GameState.Territory;
 
 public class Main {
+    public static void moveTest(Player player) throws EvalError{
+        Region city = player.cityCrew;
+        System.out.println("Current position : "+player.cityCrew.getRow()+","+player.cityCrew.getCol());
+        for(Direction direction : Direction.values()){
+            new MoveCommand(direction).eval(player);
+            System.out.println(direction.name()+" position : "+player.cityCrew.getRow()+","+player.cityCrew.getCol());
+            player.cityCrew = city;
+        }
+    }
+
+    public static void relocateTest(Player player){
+        int ccx = player.cityCenter.getRow(); //CityCenterX
+        int ccy = player.cityCenter.getCol(); //CityCenterY
+        int newCCX = player.cityCrew.getRow();
+        int newCCY = player.cityCrew.getCol();
+        int r = ccx - (ccy - ccy % 2) / 2;
+        int newR = newCCX - (newCCY - newCCY % 2) / 2;
+        int minDistance = (Math.abs(newCCY - ccy) + Math.abs(newR - r) + Math.abs((-newCCY-newR) + (ccy + r))) / 2;
+        System.out.println("minDistance = "+minDistance);
+    }
+
     public static void main(String[] args) throws EvalError, SyntaxError {
-        Territory territory = new Territory(5,5,1,100);
-        Plan p = new Plan();
-        Player player = new Player();
-        player.cityCrew = territory.territory[3][3];
+        Territory territory = new Territory(9,9,1,100);
+        Player player = new Player(territory,territory.territory[1-1][1-1],10000);
+        player.cityCrew = territory.territory[1-1][1-1];
+        player.cityCenter = territory.territory[1-1][1-1];
+        relocateTest(player);
+        moveTest(player);
+/*
+        LinkedList<Statement> l = new LinkedList<>();
+        Plan p = new Plan(l);
         Identifier v = new Identifier("t");
         Statement st1 = new AssignStatement(v,new BinaryArithExpr(v,"+",new Number(1)));
         Statement st2 = new AssignStatement(new Identifier("m"),new Number(0));
@@ -28,10 +46,10 @@ public class Main {
         sb1.add(new IfStatement(new Number(1),new BlockStatement(),new BlockStatement()));
         Statement st3 = new WhileStatement(new Identifier("deposit"),sb1);
         Statement st4 = new IfStatement(new BinaryArithExpr(new Identifier("budget"),"-",new Number(1)),new RegionCommand(Command.invest,new Number(1)),new MoveCommand(Direction.upright));
-        p.add(st1);
-        p.add(st2);
-        p.add(st3);
-        p.add(st4);
+        l.add(st1);
+        l.add(st2);
+        l.add(st3);
+        l.add(st4);
         StringBuilder s = new StringBuilder();
         p.prettyPrint(s);
         System.out.println(s);
@@ -114,6 +132,6 @@ public class Main {
         ExprParser p4 = new ExprParser(t4);
         StringBuilder a4 = new StringBuilder();
         p4.parse().prettyPrint(a4);
-        System.out.println(a4);
+        System.out.println(a4);*/
     }
 }

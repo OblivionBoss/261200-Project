@@ -53,7 +53,7 @@ public class Region extends Territory {
         if(player.cityCenter.equals(this)) player.loseGame();
     }
 
-    private void calculateInterest(){
+    public void calculateInterest(){
         if(owner != null){
             deposit += deposit*this.getInterestRate()/100;
             if(deposit > super.MAX_DEPOSIT()) deposit = super.MAX_DEPOSIT();
