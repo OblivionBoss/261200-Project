@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 export default function exp() {
   return (
     <div>
-      <Navbar key="exp" link="exp" />
+      <Navbar key="GameOption" link="GameOption" />
 
       <div class="m-5 mt-0 py-4">
         <div
@@ -18,12 +18,7 @@ export default function exp() {
           </div>
 
           {/* cards */}
-          <a
-            href="https://www.example.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ marginBottom: "20px" }}
-          >
+          <a href="/JoinGame" style={{ marginBottom: "20px" }}>
             <Card
               isLeftCard={true}
               imgSrc="./multi_icon.png"

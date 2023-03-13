@@ -1,8 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Controller from "../components/Controller";
-import Navbar from "../components/Navbar";
-import Todolist from "../components/Todolist";
+import Controller from "../../components/Controller";
+import Navbar from "../../components/Navbar";
+import Todolist from "../../components/Todolist";
 
 export default function Lab07() {
   const themes = {
