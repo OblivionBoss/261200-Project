@@ -1,5 +1,5 @@
 import React from "react";
-import Hyperlink from "../components/Hyperlink";
+import TimeCounter from "../components/TimeCounter";
 import Navbar from "../components/Navbar";
 import Hexagon from "./Hexagon";
 /*import "./components/hexagon.css";*/
@@ -19,15 +19,64 @@ export default function UPBEAT() {
           </div>
 
           <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
-            <div className="cst-show-regions">
+            <div
+              className="cst-show-regions"
+              style={{ position: "relative", top: "-80px" }}
+            >
+              <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
+                <TimeCounter
+                  countdownTimestampMs={Date.now() + 5 * 60 * 1000 + 5 * 1000}
+                />
+                <h4
+                  id="TurnTime"
+                  className="construct"
+                  class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
+                  style={{
+                    color: "#fcad03",
+                    fontFamily: "Lato",
+                    background: "#570273", //change with player assign colour
+                    marginTop: "0px",
+                    marginRight: "20px",
+                    width: "180px",
+                    height: "40px",
+                    padding: "5px",
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  <strong>Player's</strong> turn
+                </h4>
+              </div>
+
               <Hexagon />
             </div>
+
             <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
               <div className="construct">
+                <h4
+                  id="TurnTime"
+                  className="construct"
+                  class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
+                  style={{
+                    color: "#fcad03",
+                    fontFamily: "Lato",
+                    background: "black" /*"#5e1702"*/,
+                    marginTop: "0px",
+                    marginRight: "20px",
+                    width: "240px",
+                    height: "40px",
+                    padding: "5px",
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  Deposit : <strong>1000000</strong>
+                </h4>
                 <h3 style={{ fontFamily: "Lato", color: "#fcad03" }}>
                   {" "}
                   CONSTRUCTION PLAN
                 </h3>
+
                 <textarea
                   className="placeholder-color"
                   style={{
@@ -39,7 +88,7 @@ export default function UPBEAT() {
                 ></textarea>
                 <a href="about:blank" target="_blank" rel="noopener noreferrer">
                   <span
-                    className="border-0 rounded-3 py-1 px-3 p-3"
+                    class="border-0 rounded-3 py-1 px-3 p-3"
                     style={{
                       color: "#5e1702",
                       fontFamily: "Lato",

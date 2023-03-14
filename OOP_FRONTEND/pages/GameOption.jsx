@@ -27,12 +27,7 @@ export default function exp() {
             />
           </a>
 
-          <a
-            href="https://www.example.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ marginBottom: "20px" }}
-          >
+          <a href="/HostGame" style={{ marginBottom: "20px" }}>
             <Card
               isLeftCard={true}
               imgSrc="./hosting_icon.png"
