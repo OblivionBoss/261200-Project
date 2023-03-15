@@ -38,7 +38,7 @@ export default function JoinGame() {
                   placeholder="Local-Host"
                 />
               </div>
-              <a href="about:blank" target="_blank" rel="noopener noreferrer">
+              <a href="/WaitRoom">
                 <span
                   class="border-0 rounded-3 py-1 px-3 p-3"
                   style={{

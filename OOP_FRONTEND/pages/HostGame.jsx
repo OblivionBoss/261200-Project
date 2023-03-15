@@ -40,7 +40,7 @@ export default function UPBEAT() {
                   placeholder="Configuration plan here..."
                   required
                 ></textarea>
-                <a href="about:blank" target="_blank" rel="noopener noreferrer">
+                <a href="/WaitRoom">
                   <span
                     class="border-0 rounded-3 py-1 px-3 p-3"
                     style={{
