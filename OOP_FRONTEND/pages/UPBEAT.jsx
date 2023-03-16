@@ -62,7 +62,6 @@ export default function UPBEAT() {
                     fontFamily: "Lato",
                     background: "black" /*"#5e1702"*/,
                     marginTop: "0px",
-                    marginRight: "20px",
                     width: "240px",
                     height: "40px",
                     padding: "5px",
@@ -70,7 +69,7 @@ export default function UPBEAT() {
                   }}
                 >
                   {" "}
-                  Deposit : <strong>1000000</strong>
+                  Budget : <strong>1000000</strong>
                 </h4>
                 <h3 style={{ fontFamily: "Lato", color: "#fcad03" }}>
                   {" "}
@@ -86,19 +85,43 @@ export default function UPBEAT() {
                   placeholder="Tips : Remember! Peace was never an option"
                   required
                 ></textarea>
-                <a href="about:blank" target="_blank" rel="noopener noreferrer">
-                  <span
-                    class="border-0 rounded-3 py-1 px-3 p-3"
-                    style={{
-                      color: "#5e1702",
-                      fontFamily: "Lato",
-                      background: "#fcad03",
-                    }}
+                <div>
+                  <a
+                    href="about:blank"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    START
-                  </span>
-                  <i></i>
-                </a>
+                    <span
+                      class="border-0 rounded-3 py-1 px-3 p-3"
+                      style={{
+                        color: "#fcad03",
+                        fontFamily: "Lato",
+                        background: "#570273",
+                        marginRight: "20px",
+                      }}
+                    >
+                      EDIT
+                    </span>
+                    <i></i>
+                  </a>
+                  <a
+                    href="about:blank"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span
+                      class="border-0 rounded-3 py-1 px-3 p-3"
+                      style={{
+                        color: "#5e1702",
+                        fontFamily: "Lato",
+                        background: "#fcad03",
+                      }}
+                    >
+                      DONE
+                    </span>
+                    <i></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
