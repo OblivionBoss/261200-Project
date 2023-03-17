@@ -29,7 +29,6 @@ export default function UPBEAT() {
                 />
                 <h4
                   id="TurnTime"
-                  className="construct"
                   class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
                   style={{
                     color: "#fcad03",
@@ -41,6 +40,7 @@ export default function UPBEAT() {
                     height: "40px",
                     padding: "5px",
                     textAlign: "center",
+                    borderRadius: "40px",
                   }}
                 >
                   {" "}
@@ -48,14 +48,15 @@ export default function UPBEAT() {
                 </h4>
               </div>
 
-              <Hexagon />
+              <div style={{ marginTop: "50px" }}>
+                <Hexagon />
+              </div>
             </div>
 
             <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
               <div className="construct">
                 <h4
                   id="TurnTime"
-                  className="construct"
                   class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
                   style={{
                     color: "#fcad03",
@@ -66,6 +67,7 @@ export default function UPBEAT() {
                     height: "40px",
                     padding: "5px",
                     textAlign: "center",
+                    borderRadius: "40px",
                   }}
                 >
                   {" "}

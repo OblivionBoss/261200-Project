@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Region from "../public/Region.png";
 import CityCenter from "../public/CityCenter.png";
 import City from "../public/City.png";
 
 export default function Hexagon() {
-  let row = 9; //16
-  let column = 9; //16
+  let row = 16; //16
+  let column = 16; //16
   const BigRegions = [];
   const centerC = 2;
   const centerR = 5;
   const C = 2;
   const R = 4;
+
+  const [hoveredHex, setHoveredHex] = useState(null);
+  const [clickedHex, setClickedHex] = useState(null);
+  //const [clickedHexColor, setClickedHexColor] = useState(null);
+
+  const handleHexClick = (rowIndex, colIndex) => {
+    setClickedHex({ row: rowIndex, col: colIndex, clicked: false });
+  };
+
+  const handleHexHover = (rowIndex, colIndex) => {
+    setHoveredHex({
+      row: rowIndex,
+      col: colIndex,
+      value: Math.floor(Math.random() * 100),
+    });
+  };
 
   //max 16*16
   //min 9*9
@@ -33,7 +49,71 @@ export default function Hexagon() {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        width: "60%",
+        //display: "flex" ,
+        justifycontent: "center",
+        alignitems: "center",
+        marginLeft: "17.5%",
+      }}
+    >
+      {BigRegions.map((hexrow, rowIndex) => (
+        <div className="rowcss" key={rowIndex}>
+          {hexrow.map((img, colIndex) =>
+            colIndex % 2 === 1 ? (
+              <img
+                key={`${rowIndex}-${colIndex}`}
+                onClick={() => handleHexClick(rowIndex, colIndex, true)}
+                onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
+                //onMouseLeave={() => setHoveredHex(null)}
+                className="low"
+                src={img}
+                style={{
+                  width: "10%",
+                  opacity:
+                    (clickedHex?.row === rowIndex &&
+                      clickedHex?.col === colIndex) ||
+                    clickedHex?.clicked
+                      ? "0.5"
+                      : "1",
+                }}
+              />
+            ) : (
+              <img
+                key={`${rowIndex}-${colIndex}`}
+                onClick={() => handleHexClick(rowIndex, colIndex, true)}
+                onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
+                //onMouseLeave={() => setHoveredHex(null)}
+                src={img}
+                style={{
+                  width: "10%",
+                  opacity:
+                    (clickedHex?.row === rowIndex &&
+                      clickedHex?.col === colIndex) ||
+                    clickedHex?.clicked
+                      ? "0.5"
+                      : "1",
+                }}
+              />
+            )
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/*return (
+    <div
+      style={{
+        width: "60%",
+        //display: "flex" ,
+        justifycontent: "center",
+        alignitems: "center",
+        marginLeft: "17.5%",
+      }}
+    >
       {BigRegions.map((hexrow, rowIndex) => (
         <div className="rowcss" key={rowIndex}>
           {hexrow.map((img, colIndex) =>
@@ -55,5 +135,27 @@ export default function Hexagon() {
         </div>
       ))}
     </div>
-  );
-}
+  );*/
+
+/*
+{hoveredHex &&
+                  hoveredHex.row === rowIndex &&
+                  hoveredHex.col === colIndex && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#FFF",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {hoveredHex.value}
+                    </div>
+                  )}*/

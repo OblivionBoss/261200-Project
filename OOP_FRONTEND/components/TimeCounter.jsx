@@ -24,7 +24,6 @@ const TimeCounter = ({ countdownTimestampMs }) => {
     //<div class="m-4 d-flex justify-content-center overflow-hidden px-2">
     <h4
       id="TurnTime"
-      className="construct"
       //   style={{
       //     marginTop: "0px",
       //     width: "80px",
@@ -42,6 +41,7 @@ const TimeCounter = ({ countdownTimestampMs }) => {
         height: "40px",
         padding: "5px",
         textAlign: "center",
+        borderRadius: "40px",
       }}
     >
       <strong>
