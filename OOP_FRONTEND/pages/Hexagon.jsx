@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Region from "../public/Region.png";
 import CityCenter from "../public/CityCenter.png";
 import City from "../public/City.png";
-
+import MiniHexagon from "../components/MiniHexagon";
 export default function Hexagon() {
   let row = 16; //16
   let column = 16; //16
@@ -39,11 +39,16 @@ export default function Hexagon() {
   for (let i = 0; i < row; i++) {
     const hexrow = [];
     for (let j = 0; j < column; j++) {
-      if (j === centerC - 1 && i === centerR - 1)
-        hexrow.push("./Region.png"); //"./CityCenter.png"
-      else if (j === C - 1 && i === R - 1)
-        hexrow.push("./Region.png"); //"./City.png"
-      else hexrow.push("./Region.png");
+      hexrow.push(
+        <div>
+          <MiniHexagon text="123" />
+        </div>
+      );
+      // if (j === centerC - 1 && i === centerR - 1)
+      //   hexrow.push("./Region.png"); //"./CityCenter.png"
+      // else if (j === C - 1 && i === R - 1)
+      //   hexrow.push("./Region.png"); //"./City.png"
+      // else hexrow.push("./Region.png");
     }
     BigRegions.push(hexrow);
   }
@@ -55,47 +60,53 @@ export default function Hexagon() {
         //display: "flex" ,
         justifycontent: "center",
         alignitems: "center",
-        marginLeft: "17.5%",
+        marginLeft: "20%",
       }}
     >
       {BigRegions.map((hexrow, rowIndex) => (
         <div className="rowcss" key={rowIndex}>
           {hexrow.map((img, colIndex) =>
-            colIndex % 2 === 1 ? (
-              <img
-                key={`${rowIndex}-${colIndex}`}
-                onClick={() => handleHexClick(rowIndex, colIndex, true)}
-                onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
-                //onMouseLeave={() => setHoveredHex(null)}
-                className="low"
-                src={img}
-                style={{
-                  width: "10%",
-                  opacity:
-                    (clickedHex?.row === rowIndex &&
-                      clickedHex?.col === colIndex) ||
-                    clickedHex?.clicked
-                      ? "0.5"
-                      : "1",
-                }}
-              />
+            colIndex % 2 === 0 ? (
+              <div>
+                <MiniHexagon
+                  key={`${rowIndex}-${colIndex}`}
+                  width="50px"
+                  backgroundColor="white"
+                  text="" /*"69"*/
+                />
+              </div>
             ) : (
-              <img
-                key={`${rowIndex}-${colIndex}`}
-                onClick={() => handleHexClick(rowIndex, colIndex, true)}
-                onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
-                //onMouseLeave={() => setHoveredHex(null)}
-                src={img}
-                style={{
-                  width: "10%",
-                  opacity:
-                    (clickedHex?.row === rowIndex &&
-                      clickedHex?.col === colIndex) ||
-                    clickedHex?.clicked
-                      ? "0.5"
-                      : "1",
-                }}
-              />
+              // <img
+              //
+              //   onClick={() => handleHexClick(rowIndex, colIndex, true)}
+              //   onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
+              //   //onMouseLeave={() => setHoveredHex(null)}
+              //   className="low"
+              //   src={img}
+              //   style={{
+              //     width: "10%",
+
+              //   }}
+              // />
+              // <img
+              //   key={`${rowIndex}-${colIndex}`}
+              //   onClick={() => handleHexClick(rowIndex, colIndex, true)}
+              //   onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
+              //   //onMouseLeave={() => setHoveredHex(null)}
+              //   src={img}
+              //   style={{
+              //     width: "10%",
+
+              //   }}
+              // />
+              <div className="low">
+                <MiniHexagon
+                  key={`${rowIndex}-${colIndex}`}
+                  width="50px"
+                  backgroundColor="white"
+                  text="" /*"420"*/
+                />
+              </div>
             )
           )}
         </div>

@@ -1,6 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // This page will be automately directed you to game page (UPBEAT) once player are full.
 export default function WaitRoom() {
+  const [Row, setSelectedRow] = useState("");
+  const [Column, setSelectedColumn] = useState("");
+  const [Player, setSelectedPlayer] = useState("");
+  const po = Player;
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setSelectedRow(searchParams.get("Row"));
+    setSelectedColumn(searchParams.get("Column"));
+    setSelectedPlayer(searchParams.get("Player"));
+  }, []);
+
   return (
     <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
       <div
@@ -26,7 +38,7 @@ export default function WaitRoom() {
             fontSize: "80px",
           }}
         >
-          <strong>0 / 5</strong>
+          <strong>0 / {po}</strong>
         </span>
       </div>
     </div>

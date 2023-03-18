@@ -292,14 +292,14 @@ textarea::-webkit-scrollbar-thumb {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -8.7%;
+  margin-top: -12.32050807568877%; /*-10sqrt(3) + 5*/
   opacity: 0.75;
 }
 
 .low {
-  margin-bottom: 9.2%;
-  margin-left: -2%;
-  margin-right: -1.99%;
+  margin-bottom: 12.32050807568877%; /*10sqrt(3) - 5*/
+  margin-left: -3.46410161514%; /*-2sqrt(3)*/
+  margin-right: -3.46410161514%; /*-2sqrt(3)*/
 }
 
 .login .log-inputBox {

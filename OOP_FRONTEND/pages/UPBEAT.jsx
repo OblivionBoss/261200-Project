@@ -21,7 +21,7 @@ export default function UPBEAT() {
           <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
             <div
               className="cst-show-regions"
-              style={{ position: "relative", top: "-80px" }}
+              style={{ position: "relative", top: "-80px", height: "800px" }}
             >
               <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
                 <TimeCounter
@@ -54,7 +54,7 @@ export default function UPBEAT() {
             </div>
 
             <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
-              <div className="construct">
+              <div className="construct" style={{ marginLeft: "100px" }}>
                 <h4
                   id="TurnTime"
                   class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
