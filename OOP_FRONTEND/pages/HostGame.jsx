@@ -1,14 +1,41 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 //import { useHistory } from "react-router-dom";
-import Hyperlink from "../components/Hyperlink";
+//import Hyperlink from "../components/Hyperlink";
 import Navbar from "../components/Navbar";
-import Hexagon from "./Hexagon";
+//import Hexagon from "./Hexagon";
 /*import "./components/hexagon.css";*/
+import { Client } from "@stomp/stompjs";
 
-export default function UPBEAT() {
+const url = "ws://localhost:8080/project";
+let client;
+
+export default function HostGame() {
   const [Row, setSelectedRow] = useState("9");
   const [Column, setSelectedColumn] = useState("9");
   const [Player, setSelectedPlayer] = useState("2");
+  const [ICM, setICM] = useState("0");
+  const [ICS, setICS] = useState("0");
+  const [RPM, setRPM] = useState("0");
+  const [RPS, setRPS] = useState("0");
+  const [IB, setIB] = useState("10000");
+  const [ID, setID] = useState("100");
+  const [MD, setMD] = useState("1000000");
+  const [RC, setRC] = useState("100");
+  const [IR, setIR] = useState("5");
+
+  useEffect(() => {
+    if (!client) {
+      client = new Client({
+        brokerURL: url,
+        onConnect: () => {
+          client.subscribe("/app/game");
+          client.subscribe("/topic/game");
+        },
+      });
+
+      client.activate();
+    }
+  }, []);
 
   function handleChangeRow(event) {
     setSelectedRow(event.target.value);
@@ -22,6 +49,74 @@ export default function UPBEAT() {
     setSelectedPlayer(event.target.value);
     //console.log(event.target.value + " and " + Player);
   }
+
+  function handleInitialConsMin(event) {
+    setICM(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleInitialConsSec(event) {
+    setICS(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleRevPlanMin(event) {
+    setRPM(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleRevPlanSec(event) {
+    setRPS(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleInitialBudget(event) {
+    setIB(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleInitialDeposit(event) {
+    setID(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleMaxDeposit(event) {
+    setMD(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleRevCost(event) {
+    setRC(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  function handleIntRate(event) {
+    setIR(event.target.value);
+    //console.log(event.target.value + " and " + Player);
+  }
+
+  const setConfig = () => {
+    if (client) {
+      if (client.connected) {
+        client.publish({
+          destination: "/app/config",
+          body: JSON.stringify({
+            m: Row,
+            n: Column,
+            init_plan_min: ICM,
+            init_plan_sec: ICS,
+            init_budget: IB,
+            init_center_dep: ID,
+            plan_rev_min: RPM,
+            plan_rev_sec: RPS,
+            rev_cost: RC,
+            max_dep: MD,
+            interest_pct: IR,
+          }),
+        });
+      }
+    }
+  };
 
   function createSelect(N, values) {
     // Create a new <select> element
@@ -44,7 +139,7 @@ export default function UPBEAT() {
       "/WaitRoom?Row=" + Row + "&Column=" + Column + "&Player=" + Player;
 
     return (
-      <a href={str} style={{ marginTop: "20px" }}>
+      <a href={str} style={{ marginTop: "20px" }} onClick={() => setConfig()}>
         <span
           class="border-0 rounded-3 py-1 px-3 p-3"
           style={{
@@ -227,23 +322,23 @@ export default function UPBEAT() {
                       Initial Construction Time
                     </h5>
                     <select
-                      //value={Row}
-                      //onChange={handleChangeRow}
+                      value={ICM}
+                      onChange={handleInitialConsMin}
                       style={{ width: "45px" }}
                     >
                       {Array.from(Array(61).keys()).map((number) => (
-                        <option key={number} value={number}>
+                        <option key={number} value={number.toString()}>
                           {number}
                         </option>
                       ))}
                     </select>
                     <select
-                      //value={Row}
-                      //onChange={handleChangeRow}
+                      value={ICS}
+                      onChange={handleInitialConsSec}
                       style={{ width: "45px" }}
                     >
                       {Array.from(Array(60).keys()).map((number) => (
-                        <option key={number} value={number}>
+                        <option key={number} value={number.toString()}>
                           {number}
                         </option>
                       ))}
@@ -269,23 +364,23 @@ export default function UPBEAT() {
                     Revision Planning Time
                   </h5>
                   <select
-                    //value={Row}
-                    //onChange={handleChangeRow}
+                    value={RPM}
+                    onChange={handleRevPlanMin}
                     style={{ width: "45px" }}
                   >
                     {Array.from(Array(61).keys()).map((number) => (
-                      <option key={number} value={number}>
+                      <option key={number} value={number.toString()}>
                         {number}
                       </option>
                     ))}
                   </select>
                   <select
-                    //value={Row}
-                    //onChange={handleChangeRow}
+                    value={RPS}
+                    onChange={handleRevPlanSec}
                     style={{ width: "45px" }}
                   >
                     {Array.from(Array(60).keys()).map((number) => (
-                      <option key={number} value={number}>
+                      <option key={number} value={number.toString()}>
                         {number}
                       </option>
                     ))}
@@ -312,6 +407,8 @@ export default function UPBEAT() {
                       Initial Budget
                     </h5>
                     <input
+                      value={IB}
+                      onChange={handleInitialBudget}
                       style={{
                         width: "80px",
                         marginLeft: "5px",
@@ -339,6 +436,8 @@ export default function UPBEAT() {
                       Initial Deposit
                     </h5>
                     <input
+                      value={ID}
+                      onChange={handleInitialDeposit}
                       style={{
                         width: "80px",
                         marginLeft: "5px",
@@ -370,6 +469,8 @@ export default function UPBEAT() {
                       Maximum Deposit
                     </h5>
                     <input
+                      value={MD}
+                      onChange={handleMaxDeposit}
                       style={{
                         width: "90px",
                         marginLeft: "5px",
@@ -398,6 +499,8 @@ export default function UPBEAT() {
                       Revision Cost
                     </h5>
                     <input
+                      value={RC}
+                      onChange={handleRevCost}
                       style={{
                         width: "80px",
                         marginLeft: "5px",
@@ -425,6 +528,8 @@ export default function UPBEAT() {
                       Interest Rate
                     </h5>
                     <input
+                      value={IR}
+                      onChange={handleIntRate}
                       style={{
                         width: "80px",
                         marginLeft: "5px",

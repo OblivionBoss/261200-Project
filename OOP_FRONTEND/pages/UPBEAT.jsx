@@ -1,29 +1,57 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import TimeCounter from "../components/TimeCounter";
 import Navbar from "../components/Navbar";
 import Hexagon from "./Hexagon";
+import { useRouter } from "next/router";
+import Link from "next/link";
 /*import "./components/hexagon.css";*/
 
 export default function UPBEAT() {
+  const [Text, setText] = useState("");
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    //setSelectedRow(searchParams.get("Row"));
+    //setSelectedColumn(searchParams.get("Column"));
+    setText(searchParams.get("Text"));
+    //  const handleBeforeUnload = (event) => {
+    //    event.preventDefault();
+    //    router.push("/UPBEAT?Text=" + Text);
+    //  };
+
+    //  window.addEventListener("beforeunload", handleBeforeUnload);
+
+    //  return () => {
+    //    window.removeEventListener("beforeunload", handleBeforeUnload);
+    //  };
+  }, []);
+
   return (
-    <div>
-      <Navbar key="UPBEAT" link="UPBEAT" />
-      <div class="mx-5 py-4">
+    <div id="UPBEAT">
+      <Navbar id="NavBar" key="UPBEAT" link="UPBEAT" />
+      <div id="EntireSpace" class="mx-5 py-4">
         <div
+          id="EntirePadding"
           style={{ alignContent: "center" }}
           class="m-4 vstack d-flex justify-content-center"
         >
-          <div class="m-3">
-            <h1 style={{ textAlign: "center" }}>UPBEAT</h1>
+          <div id="TitleContainer" class="m-3">
+            <h1 id="Title" style={{ textAlign: "center" }}>
+              UPBEAT
+            </h1>
             <hr />
           </div>
 
           <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
             <div
+              id="leftSide"
               className="cst-show-regions"
               style={{ position: "relative", top: "-80px", height: "800px" }}
             >
-              <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
+              <div
+                id="PlayerTurnTime"
+                class="m-4 d-flex justify-content-center overflow-hidden px-2"
+              >
                 <TimeCounter
                   countdownTimestampMs={Date.now() + 5 * 60 * 1000 + 5 * 1000}
                 />
@@ -106,7 +134,25 @@ export default function UPBEAT() {
                     </span>
                     <i></i>
                   </a>
-                  <a
+                  <Link
+                    href={"/UPBEAT?Text=" + `${Text}`}
+                    as={useRouter().asPath}
+                  >
+                    <a>
+                      <span
+                        class="border-0 rounded-3 py-1 px-3 p-3"
+                        style={{
+                          color: "#5e1702",
+                          fontFamily: "Lato",
+                          background: "#fcad03",
+                        }}
+                      >
+                        DONE
+                      </span>
+                      <i></i>
+                    </a>
+                  </Link>
+                  {/* <a
                     href="about:blank"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -122,7 +168,7 @@ export default function UPBEAT() {
                       DONE
                     </span>
                     <i></i>
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>

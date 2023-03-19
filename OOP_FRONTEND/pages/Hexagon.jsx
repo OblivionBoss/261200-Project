@@ -55,6 +55,7 @@ export default function Hexagon() {
 
   return (
     <div
+      id="HexagonGrid"
       style={{
         width: "60%",
         //display: "flex" ,
@@ -64,47 +65,32 @@ export default function Hexagon() {
       }}
     >
       {BigRegions.map((hexrow, rowIndex) => (
-        <div className="rowcss" key={rowIndex}>
+        <div
+          id={"HexagonRow" + `${rowIndex}`}
+          className="rowcss"
+          key={rowIndex}
+        >
           {hexrow.map((img, colIndex) =>
             colIndex % 2 === 0 ? (
-              <div>
+              <div id={`${rowIndex},${colIndex}`}>
                 <MiniHexagon
-                  key={`${rowIndex}-${colIndex}`}
+                  key={`${rowIndex},${colIndex}`}
+                  id={`${rowIndex},${colIndex}`}
                   width="50px"
                   backgroundColor="white"
-                  text="" /*"69"*/
+                  changeColor="green"
+                  text="69" /*"69"*/
                 />
               </div>
             ) : (
-              // <img
-              //
-              //   onClick={() => handleHexClick(rowIndex, colIndex, true)}
-              //   onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
-              //   //onMouseLeave={() => setHoveredHex(null)}
-              //   className="low"
-              //   src={img}
-              //   style={{
-              //     width: "10%",
-
-              //   }}
-              // />
-              // <img
-              //   key={`${rowIndex}-${colIndex}`}
-              //   onClick={() => handleHexClick(rowIndex, colIndex, true)}
-              //   onMouseEnter={() => handleHexHover(rowIndex, colIndex)}
-              //   //onMouseLeave={() => setHoveredHex(null)}
-              //   src={img}
-              //   style={{
-              //     width: "10%",
-
-              //   }}
-              // />
-              <div className="low">
+              <div className="low" id={`${rowIndex},${colIndex}`}>
                 <MiniHexagon
-                  key={`${rowIndex}-${colIndex}`}
+                  key={`${rowIndex},${colIndex}`}
+                  id={`${rowIndex},${colIndex}`}
                   width="50px"
                   backgroundColor="white"
-                  text="" /*"420"*/
+                  changeColor="green"
+                  text="420" /*"420"*/
                 />
               </div>
             )
