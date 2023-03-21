@@ -339,3 +339,10 @@ textarea::-webkit-scrollbar-thumb {
   letter-spacing: 0.25em;
   background: crimson;
 }
+
+.my-editor .ace_editor .ace_content {
+  font-family: /*"JetBrains Mono",*/ monospace !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}

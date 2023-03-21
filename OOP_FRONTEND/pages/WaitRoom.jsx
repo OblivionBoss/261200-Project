@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // This page will be automately directed you to game page (UPBEAT) once player are full.
 export default function WaitRoom() {
-  const [Row, setSelectedRow] = useState("");
-  const [Column, setSelectedColumn] = useState("");
+  //const [Row, setSelectedRow] = useState("");
+  //const [Column, setSelectedColumn] = useState("");
   const [Player, setSelectedPlayer] = useState("");
   const [count, setCount] = useState(1);
 
@@ -13,8 +13,8 @@ export default function WaitRoom() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    setSelectedRow(searchParams.get("Row"));
-    setSelectedColumn(searchParams.get("Column"));
+    //setSelectedRow(searchParams.get("Row"));
+    //setSelectedColumn(searchParams.get("Column"));
     setSelectedPlayer(searchParams.get("Player"));
     if (count === parseInt(Player)) {
       setTimeout(() => {

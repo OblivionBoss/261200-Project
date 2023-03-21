@@ -6,10 +6,11 @@ import Navbar from "../components/Navbar";
 /*import "./components/hexagon.css";*/
 import { Client } from "@stomp/stompjs";
 
-const url = "ws://localhost:8080/project";
+const url = "ws://10.83.245.232:8080/project";
 let client;
 
 export default function HostGame() {
+  const [Name, setName] = useState("");
   const [Row, setSelectedRow] = useState("9");
   const [Column, setSelectedColumn] = useState("9");
   const [Player, setSelectedPlayer] = useState("2");
@@ -36,6 +37,10 @@ export default function HostGame() {
       client.activate();
     }
   }, []);
+
+  function handleName(event) {
+    setName(event.target.value);
+  }
 
   function handleChangeRow(event) {
     setSelectedRow(event.target.value);
@@ -114,6 +119,12 @@ export default function HostGame() {
             interest_pct: IR,
           }),
         });
+        client.publish({
+          destination: "/app/newPlayer",
+          body: JSON.stringify({
+            name: Name,
+          }),
+        });
       }
     }
   };
@@ -135,8 +146,7 @@ export default function HostGame() {
   }
 
   function HOST() {
-    const str =
-      "/WaitRoom?Row=" + Row + "&Column=" + Column + "&Player=" + Player;
+    const str = "/WaitRoom?Player=" + Player;
 
     return (
       <a href={str} style={{ marginTop: "20px" }} onClick={() => setConfig()}>
@@ -184,6 +194,8 @@ export default function HostGame() {
                     Your Name
                   </h4>
                   <input
+                    value={Name}
+                    onChange={handleName}
                     style={{
                       width: "200px",
                       marginLeft: "5px",

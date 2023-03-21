@@ -4,27 +4,55 @@ import Navbar from "../components/Navbar";
 import Hexagon from "./Hexagon";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+import { Client } from "@stomp/stompjs";
+
+const url = "ws://10.83.245.232:8080/project";
+let client;
 /*import "./components/hexagon.css";*/
 
 export default function UPBEAT() {
-  const [Text, setText] = useState("");
+  const [content, setContent] = useState("");
+  const [Text, setText] = useState([]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    //setSelectedRow(searchParams.get("Row"));
-    //setSelectedColumn(searchParams.get("Column"));
-    setText(searchParams.get("Text"));
-    //  const handleBeforeUnload = (event) => {
-    //    event.preventDefault();
-    //    router.push("/UPBEAT?Text=" + Text);
-    //  };
+    if (!client) {
+      client = new Client({
+        brokerURL: url,
+        onConnect: () => {
+          client.subscribe("/app/game");
+          client.subscribe("/topic/game");
+        },
+      });
 
-    //  window.addEventListener("beforeunload", handleBeforeUnload);
-
-    //  return () => {
-    //    window.removeEventListener("beforeunload", handleBeforeUnload);
-    //  };
+      client.activate();
+    }
   }, []);
+
+  function handleText(event) {
+    setContent(event.target.value);
+    setText(event.target.value.split("\n"));
+    // setContent(value);
+    // const newLines = value.split("\n");
+    // setText(newLines);
+    //setText(event.target.value);
+  }
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   //setSelectedRow(searchParams.get("Row"));
+  //   //setSelectedColumn(searchParams.get("Column"));
+  //   setText(searchParams.get("Text"));
+  //   //  const handleBeforeUnload = (event) => {
+  //   //    event.preventDefault();
+  //   //    router.push("/UPBEAT?Text=" + Text);
+  //   //  };
+
+  //   //  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  //   //  return () => {
+  //   //    window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   //  };
+  // }, []);
 
   return (
     <div id="UPBEAT">
@@ -33,7 +61,7 @@ export default function UPBEAT() {
         <div
           id="EntirePadding"
           style={{ alignContent: "center" }}
-          class="m-4 vstack d-flex justify-content-center"
+          class=" vstack d-flex justify-content-center"
         >
           <div id="TitleContainer" class="m-3">
             <h1 id="Title" style={{ textAlign: "center" }}>
@@ -42,7 +70,7 @@ export default function UPBEAT() {
             <hr />
           </div>
 
-          <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
+          <div class=" d-flex justify-content-center overflow-hidden px-2">
             <div
               id="leftSide"
               className="cst-show-regions"
@@ -82,7 +110,10 @@ export default function UPBEAT() {
             </div>
 
             <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
-              <div className="construct" style={{ marginLeft: "100px" }}>
+              <div
+                className="construct"
+                style={{ marginLeft: "100px", width: "750px" }}
+              >
                 <h4
                   id="TurnTime"
                   class="border-0 rounded-3 justify-content-center rounded-3 py-1 px-3 p-3"
@@ -107,6 +138,8 @@ export default function UPBEAT() {
                 </h3>
 
                 <textarea
+                  value={content}
+                  onChange={handleText}
                   className="placeholder-color"
                   style={{
                     fontFamily: "Lato",
@@ -135,8 +168,8 @@ export default function UPBEAT() {
                     <i></i>
                   </a>
                   <Link
-                    href={"/UPBEAT?Text=" + `${Text}`}
-                    as={useRouter().asPath}
+                    href="/UPBEAT"
+                    //as={useRouter().asPath}
                   >
                     <a>
                       <span

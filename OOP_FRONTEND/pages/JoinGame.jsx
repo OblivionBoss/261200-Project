@@ -1,7 +1,69 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { Client } from "@stomp/stompjs";
 
 export default function JoinGame() {
+  const [Name, setName] = useState("");
+  const [IP, setIP] = useState("");
+
+  const url = "ws://" + IP /*"10.83.245.232"*/ + ":8080/project";
+  let client;
+
+  useEffect(() => {
+    if (!client) {
+      client = new Client({
+        brokerURL: url,
+        onConnect: () => {
+          client.subscribe("/app/game", (message) => {
+            const body = JSON.parse(message.body);
+            //setNameP1(body["nameP1"]);
+            //setP1Ready(body["p1Ready"]);
+            //setP2Ready(body["p2Ready"]);
+          });
+
+          client.subscribe("/topic/game", (message) => {
+            const body = JSON.parse(message.body);
+            //setNameP1(body["nameP1"]);
+            //setP1Ready(body["p1Ready"]);
+            //setP2Ready(body["p2Ready"]);
+          });
+        },
+      });
+
+      client.activate();
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(window.location.search);
+  //   setSelectedRow(searchParams.get("Row"));
+  //   setSelectedColumn(searchParams.get("Column"));
+  //   setSelectedPlayer(searchParams.get("Player"));
+  //   //setTimeout(() => {
+  //   //  window.location.href = "/UPBEAT?Text=" + Text; //?Row=" + Row + "&Column=" + Column + "&Player=" + Player;
+  //   //}, 305000);
+  // }, []);
+
+  function handleName(event) {
+    setName(event.target.value);
+  }
+
+  function handleIP(event) {
+    setIP(event.target.value);
+  }
+
+  const setConfig = () => {
+    if (client) {
+      if (client.connected) {
+        client.publish({
+          destination: "/app/newPlayer",
+          body: JSON.stringify({
+            name: Name,
+          }),
+        });
+      }
+    }
+  };
   return (
     // <div id="log-bg-video">
     //   <video src={myLogin} autoPlay loop muted></video>
@@ -45,6 +107,7 @@ export default function JoinGame() {
                   Your Name
                 </h4>
                 <input
+                  onChange={handleName}
                   style={{
                     width: "200px",
                     marginLeft: "5px",
@@ -72,6 +135,7 @@ export default function JoinGame() {
                   Local-Host
                 </h4>
                 <input
+                  onChange={handleIP}
                   style={{
                     width: "200px",
                     marginLeft: "5px",
@@ -99,18 +163,4 @@ export default function JoinGame() {
       </div>
     </div>
   );
-}
-{
-  /* <form action="/about:blank">
-                <div
-                  className="border-0 rounded-3 py-1 px-3 p-3"
-                  style={{
-                    color: "#5e1702",
-                    fontFamily: "Lato",
-                    background: "#fcad03",
-                  }}
-                >
-                  <input type="submit" value="Join" id="btn" />
-                </div>
-              </form> */
 }

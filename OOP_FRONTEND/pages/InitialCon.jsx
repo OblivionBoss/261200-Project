@@ -4,27 +4,76 @@ import Navbar from "../components/Navbar";
 import Hexagon from "./Hexagon";
 import Link from "next/link";
 import { useRouter } from "next/router";
-/*import "./components/hexagon.css";*/
+
+import { Client } from "@stomp/stompjs";
+
+const url = "ws://10.83.245.232:8080/project"; //"ws://echo.websocket.org:8080";
+let client;
 
 export default function InitialCon() {
-  const [Row, setSelectedRow] = useState("");
-  const [Column, setSelectedColumn] = useState("");
-  const [Player, setSelectedPlayer] = useState("");
-  const [Text, setText] = useState("");
+  //const [Row, setSelectedRow] = useState("");
+  //const [Column, setSelectedColumn] = useState("");
+  //const [Player, setSelectedPlayer] = useState("");
+
+  const [content, setContent] = useState("");
+  const [Text, setText] = useState([]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    setSelectedRow(searchParams.get("Row"));
-    setSelectedColumn(searchParams.get("Column"));
-    setSelectedPlayer(searchParams.get("Player"));
-    setTimeout(() => {
-      window.location.href = "/UPBEAT?Text=" + Text; //?Row=" + Row + "&Column=" + Column + "&Player=" + Player;
-    }, 305000);
+    if (!client) {
+      client = new Client({
+        brokerURL: url,
+        onConnect: () => {
+          client.subscribe("/app/game");
+          client.subscribe("/topic/game");
+        },
+      });
+
+      client.activate();
+    }
+    // async function loadEditor() {
+    //   const [AceEditor, modeJava, themeEclipse, extLanguageTools] = await Promise.all([
+    //     import("react-ace"),
+    //     import("ace-builds/src-noconflict/mode-java"),
+    //     import("ace-builds/src-noconflict/theme-eclipse"),
+    //     import("ace-builds/src-noconflict/ext-language_tools"),
+    //   ]);
+
+    //   setEditorLoaded(true);
+    // }
+
+    // loadEditor();
   }, []);
+  // // useEffect(() => {
+  // //   const searchParams = new URLSearchParams(window.location.search);
+  // //   setSelectedRow(searchParams.get("Row"));
+  // //   setSelectedColumn(searchParams.get("Column"));
+  // //   setSelectedPlayer(searchParams.get("Player"));
+  // //   //setTimeout(() => {
+  // //   //  window.location.href = "/UPBEAT?Text=" + Text; //?Row=" + Row + "&Column=" + Column + "&Player=" + Player;
+  // //   //}, 305000);
+  // // }, []);
 
   function handleText(event) {
-    setText(event.target.value);
+    setContent(event.target.value);
+    setText(event.target.value.split("\n"));
+    // setContent(value);
+    // const newLines = value.split("\n");
+    // setText(newLines);
+    //setText(event.target.value);
   }
+
+  const setConfig = () => {
+    if (client) {
+      if (client.connected) {
+        client.publish({
+          destination: "/app/config",
+          body: JSON.stringify({
+            Config: Text,
+          }),
+        });
+      }
+    }
+  };
 
   return (
     <div>
@@ -41,7 +90,10 @@ export default function InitialCon() {
 
           <div class="m-4 d-flex justify-content-center overflow-hidden px-2">
             <div class="m-4 d-flex justify-content-right overflow-hidden px-2">
-              <div className="construct" style={{ marginLeft: "100px" }}>
+              <div
+                className="construct"
+                style={{ marginLeft: "100px", width: "750px" }}
+              >
                 <TimeCounter
                   countdownTimestampMs={Date.now() + 5 * 60 * 1000 + 5 * 1000}
                 />
@@ -49,11 +101,10 @@ export default function InitialCon() {
                   {" "}
                   CONSTRUCTION PLAN
                 </h2>
-
                 <textarea
-                  className="placeholder-color"
-                  id="InitialConst"
+                  value={content}
                   onChange={handleText}
+                  className="placeholder-color"
                   style={{
                     fontFamily: "Lato",
                     color: "black",
@@ -61,9 +112,11 @@ export default function InitialCon() {
                   placeholder="Tips : Remember! Peace was never an option"
                   required
                 ></textarea>
+
                 <div>
                   <Link
-                    href={"/UPBEAT?Text=" + `${Text}`}
+                    onClick={() => setConfig()}
+                    href="/UPBEAT" //{"/UPBEAT?Text=" + `${Text}`}
                     as={useRouter().asPath}
                   >
                     <a>
