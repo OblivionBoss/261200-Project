@@ -1,21 +1,27 @@
 package GameState;
 
-import GameState.Region;
+import java.util.Random;
 
 public class Territory {
     private long FEE_CHARGE = 1;
-    private long TERRITORY_ROW = 1;
-    private long TERRITORY_COL = 1;
+    private int TERRITORY_ROW = 1;
+    private int TERRITORY_COL = 1;
+    private long REVISION_COST;
     private long MAX_DEPOSIT;
     protected double baseInterestRate;
     protected int turn = 1;
+    private int playerTurn = 0;
     public Region[][] territory;
+    public Player[] playerSet;
 
     public Territory() {}
 
-    public Territory(int m,int n,int interest_pct,int max_dep){
+    public Territory(String[] players, int m, int n, long init_budget, long init_center_dep, long rev_cost, long interest_pct, long max_dep){
         TERRITORY_ROW = m;
         TERRITORY_COL = n;
+        REVISION_COST = rev_cost;
+        MAX_DEPOSIT = max_dep;
+        baseInterestRate = interest_pct;
         territory = new Region[m][n];
         for (int i=1 ; i<=m ; i++){
             for (int j=1 ; j<=n ; j++){
@@ -41,8 +47,34 @@ public class Territory {
                 }
             }
         }
-        baseInterestRate = interest_pct;
-        MAX_DEPOSIT = max_dep;
+        for(int i = 0 ; i < players.length ; i++){
+            this.playerSet = new Player[players.length];
+            Region cityCenterRandom;
+            while(true){
+                int row = new Random().nextInt(TERRITORY_ROW);
+                int col = new Random().nextInt(TERRITORY_COL);
+                if(territory[row][col].owner == null){
+                    cityCenterRandom = territory[row][col];
+                    cityCenterRandom.addDeposit(init_center_dep);
+                    break;
+                }
+            }
+            playerSet[i] = new Player(players[i],this,cityCenterRandom);
+            playerSet[i].addBudget(init_budget);
+        }
+    }
+
+    public void updatePlayerTurn(){
+        playerSet[playerTurn].evaluatePlan();
+        playerTurn = (playerTurn + 1) % playerSet.length; // update next player turn
+        if(playerTurn == 0) turn++;
+        calculateInterest(playerSet[playerTurn]); // calculate next player
+    }
+
+    public void calculateInterest(Player player){
+        for(Region region : player.regionSet){
+            region.calculateInterest();
+        }
     }
 
     public long TERRITORY_ROW(){

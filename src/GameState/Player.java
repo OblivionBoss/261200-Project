@@ -1,29 +1,39 @@
 package GameState;
 
+import AST.ENUM.Command;
 import AST.Plan;
+import AST.Statement.ActionCommand;
+import AST.Statement.Statement;
+import ErrorExcep.EvalError;
 import ErrorExcep.SyntaxError;
 import Parser.StatementParser;
 import Tokenizer.Tokenizer;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Player {
+    public String playerName;
     private Territory territory;
     private Plan construction_Plan;
     public final Map<String, Double> variableSet;
     public final HashSet<Region> regionSet;
     public Region cityCenter;
     public Region cityCrew;
-    private double budget;
+    private double budget = 0;
 
-    public Player(Territory territory, Region cityCenter, double initBudget){
+    public Player(String name, Territory territory, Region cityCenter){
         this.variableSet = new HashMap<>();
         this.regionSet = new HashSet<>();
+        this.playerName = name;
         this.territory = territory;
         this.cityCrew = this.cityCenter = cityCenter;
-        this.budget = initBudget;
+        this.cityCenter.owner = this;
+        LinkedList<Statement> done = new LinkedList<>();
+        done.add(new ActionCommand(Command.done));
+        this.construction_Plan = new Plan(done);
     }
 
     public Territory territory(){
@@ -55,6 +65,13 @@ public class Player {
             return e.getMessage();
         }
         return "1";
+    }
+
+    public void evaluatePlan(){
+        try {
+            this.construction_Plan.eval(this);
+            this.cityCrew = this.cityCenter;
+        } catch (EvalError e) {}
     }
 
     public void loseGame(){

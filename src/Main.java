@@ -29,8 +29,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws EvalError, SyntaxError {
-        Territory territory = new Territory(9,9,1,100);
-        Player player = new Player(territory,territory.territory[1-1][1-1],10000);
+        String[] name = new String[1];
+        name[0] = "2";
+        Territory territory = new Territory(name,9,9,10000,100,1,1,100);
+        Player player = new Player("1",territory,territory.territory[1-1][1-1]);
         player.cityCrew = territory.territory[1-1][1-1];
         player.cityCenter = territory.territory[1-1][1-1];
         relocateTest(player);
