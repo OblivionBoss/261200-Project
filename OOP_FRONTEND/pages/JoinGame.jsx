@@ -6,7 +6,7 @@ export default function JoinGame() {
   const [Name, setName] = useState("");
   const [IP, setIP] = useState("");
 
-  const url = "ws://" + IP /*"10.83.245.232"*/ + ":8080/project";
+  const url = "ws://" + /*IP*/ "10.83.245.232" + ":8080/project";
   let client;
 
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function JoinGame() {
                   placeholder="Please enter your local-host"
                 />
               </div>
-              <a href="/WaitRoom" style={{ marginTop: "20px" }}>
+              <a href="/WaitRoom?Player=2" style={{ marginTop: "20px" }}>
                 <span
                   class="border-0 rounded-3 py-1 px-3 p-3"
                   style={{
