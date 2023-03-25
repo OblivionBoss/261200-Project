@@ -40,9 +40,10 @@ export default function Hexagon() {
     const hexrow = [];
     for (let j = 0; j < column; j++) {
       hexrow.push(
-        <div>
-          <MiniHexagon text="123" />
-        </div>
+        "Pneuma"
+        // <div>
+        //   <MiniHexagon text="123" />
+        // </div>
       );
       // if (j === centerC - 1 && i === centerR - 1)
       //   hexrow.push("./Region.png"); //"./CityCenter.png"

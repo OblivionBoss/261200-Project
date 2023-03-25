@@ -95,7 +95,9 @@ export default function InitialCon() {
                 style={{ marginLeft: "100px", width: "750px" }}
               >
                 <TimeCounter
-                  countdownTimestampMs={Date.now() + 5 * 60 * 1000 + 5 * 1000}
+                  MIN="03"
+                  SEC="20"
+                  countdownTimestampMs={Date.now() + 3 * 60 * 1000 + 20 * 1000}
                 />
                 <h2 style={{ fontFamily: "Lato", color: "#fcad03" }}>
                   {" "}

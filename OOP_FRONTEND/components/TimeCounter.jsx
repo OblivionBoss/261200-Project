@@ -2,12 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getRemainingTimeUnitMsTimestamp } from "./TimeCounterUtil";
 
-const defaultRemainingTime = {
-  seconds: "05",
-  minutes: "05",
-};
+const TimeCounter = ({ MIN, SEC, countdownTimestampMs }) => {
+  const defaultRemainingTime = {
+    seconds: SEC,
+    minutes: MIN,
+  };
 
-const TimeCounter = ({ countdownTimestampMs }) => {
+  // const countdownTimestampMs =
+  //   Date.now() + parseInt(MIN) * 60 * 1000 + parseInt(SEC) * 1000;
+
   const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
   useEffect(() => {
