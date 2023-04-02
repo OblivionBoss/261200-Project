@@ -1,0 +1,348 @@
+@import url("http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext");
+
+html,
+body {
+  /*background-color: #03fc6f;*/
+  padding: 0;
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+a {
+  color: grey;
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+th {
+  font-size: 20px;
+  font-weight: normal;
+  padding: 3px;
+  padding-right: 20px;
+  font-family: "Lato", sans-serif;
+  text-align: left;
+}
+
+td {
+  color: grey;
+  font-size: 20px;
+  padding: 3px;
+  padding-left: 20px;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  /*background-color: #03fc6f;*/
+  background-image: url("../public/Blaze.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+p {
+  font-family: "Lato", sans-serif;
+  font-size: large;
+  color: grey;
+}
+
+h1 {
+  font-size: 200px;
+  font-family: "Lato", sans-serif;
+  color: #fc3f05;
+}
+
+h3 {
+  font-family: "Lato", sans-serif;
+  color: white;
+}
+
+h5 {
+  font-family: "Lato", sans-serif;
+  color: grey;
+}
+
+a {
+  font-family: "Lato", sans-serif;
+  text-decoration: none;
+  color: grey;
+  transition: 0.2s;
+}
+
+hr {
+  color: grey;
+  border-width: 2px;
+}
+
+.construct {
+  display: flex;
+  position: relative;
+  margin-top: 50px;
+  margin-left: 100px;
+  right: 70px;
+  bottom: 50px;
+  width: 470px;
+  height: fit-content;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(252, 63, 5, 0.375);
+  color: #fcad03;
+  border-radius: 40px;
+  padding: 25px 20px 15px;
+  gap: 10px;
+}
+
+.construct h2 {
+  color: #7b7b7b;
+  font-size: 28px;
+}
+
+.construct textarea {
+  width: 100%;
+  height: 400px;
+  padding: 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  background: rgb(255, 255, 255, 0.75);
+}
+
+.placeholder-color::placeholder {
+  color: rgb(0, 0, 0, 0.75);
+}
+
+.show-cstPlan {
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-content: center;
+
+  gap: 50px;
+}
+
+.cst-show-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.cst-show-regions {
+  height: 400px;
+  width: 600px;
+
+  /*background: rgba(35, 42, 145, 0.25);
+  backdrop-filter: blur(40px);*/
+
+  /*border-bottom: 3px solid rgba(6, 5, 5, 0.25);
+  border-right: 3px solid rgba(3, 2, 2, 0.25);*/
+  /*border-left-style: double;
+  border-right-style: double;
+  border-radius: 20px 7px 7px 20px;
+  box-shadow: 0px 5px 5px rgba(77, 49, 5, 0.626);*/
+  /*overflow: auto;
+  margin: auto;*/
+  margin-top: 5%;
+  resize: none;
+  /*padding-left: 13%;
+  padding-right: 12%;
+  padding-top: 5%;
+  padding-bottom: 4%;*/
+}
+
+.cst-show-regions::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.cst-show-regions::-webkit-scrollbar-track {
+  background: #c5bcbc;
+  border-radius: 500px;
+}
+
+.cst-show-regions::-webkit-scrollbar-thumb {
+  background-color: #850a3bdb;
+  border-radius: 3px;
+  border: none;
+}
+
+.cst-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 470px;
+  height: fit-content;
+
+  background: rgb(187, 167, 88);
+  box-shadow: 0px 5px 5px rgba(33, 23, 4, 0.5);
+
+  border-radius: 40px;
+  padding: 25px 20px 15px;
+  margin-top: 2%;
+  gap: 10px;
+}
+
+.cst-wrapper h2 {
+  color: #793434;
+  font-size: 28px;
+}
+
+.cst-wrapper a {
+  position: relative;
+  background: #793434;
+  color: #fff !important;
+  border-radius: 15px 15px 15px 15px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  padding: 10px 30px;
+  transition: 0.5s;
+}
+
+.cst-wrapper a:hover {
+  letter-spacing: 0.25em;
+  background: #096d4d;
+  box-shadow: 0 0 0px var(--clr);
+  text-decoration: none;
+}
+
+.cst-wrapper textarea {
+  width: 100%;
+  height: 400px;
+  padding: 15px;
+  font-size: 14px;
+  border-radius: 10px;
+  /* border-color: #222d69; */
+  resize: none;
+}
+
+textarea:is(:focus, :valid) {
+  border-width: 2px;
+  padding: 14px;
+  border-color: rgb(172, 155, 88);
+}
+
+textarea::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #e0d8d8;
+  border-radius: 500px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #793434;
+  border-radius: 3px;
+  border: none;
+}
+
+.cst-show-budget {
+  display: flex;
+  flex-direction: initial;
+  gap: 20px;
+}
+
+.cst-budget {
+  display: flex;
+  align-items: center;
+  color: #444 !important;
+  height: 50px;
+  width: 200px;
+  border: 3px solid #ffffff;
+  background-color: #eaeaea;
+  border-radius: 20px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 0 6px 0 #b19a9a;
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+  gap: 5px;
+}
+
+.cst-budget span {
+  font-size: 20px;
+  color: #b57676;
+  margin-left: 20px;
+  max-width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cst-withIcon {
+  width: 60px;
+  padding-left: 20px;
+  flex-shrink: 0;
+}
+
+#hex-grid {
+  height: 100vh;
+  background-size: cover;
+}
+
+.rowcss {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -12.32050807568877%; /*-10sqrt(3) + 5*/
+  opacity: 0.75;
+}
+
+.low {
+  margin-bottom: 12.32050807568877%; /*10sqrt(3) - 5*/
+  margin-left: -3.46410161514%; /*-2sqrt(3)*/
+  margin-right: -3.46410161514%; /*-2sqrt(3)*/
+}
+
+.login .log-inputBox {
+  position: relative;
+}
+
+.login .log-inputBox input {
+  position: relative;
+  width: 80%;
+  padding: 7px 20px;
+  outline: none;
+  font-size: 1em;
+  color: #22589a;
+  border-radius: 50px;
+  background: #fff;
+  border: none;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.login .log-inputBox #btn {
+  position: relative;
+  border: none;
+  outline: none;
+  background: #22589a;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.25em;
+  font-weight: 500;
+  transition: 0.5s;
+  margin-left: 34px;
+}
+
+.login .log-inputBox #btn:hover {
+  letter-spacing: 0.25em;
+  background: crimson;
+}
+
+.my-editor .ace_editor .ace_content {
+  font-family: /*"JetBrains Mono",*/ monospace !important;
+  font-size: 12px;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
