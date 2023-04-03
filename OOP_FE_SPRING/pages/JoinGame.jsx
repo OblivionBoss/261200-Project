@@ -69,8 +69,6 @@ export default function JoinGame(props) {
     //   <video src={myLogin} autoPlay loop muted></video>
     //</div>
     <div>
-      <Navbar key="JoinGame" link="JoinGame" />
-
       <div class="m-5 mt-0 py-4">
         <div
           style={{ alignContent: "center" }}
@@ -144,17 +142,17 @@ export default function JoinGame(props) {
                   placeholder="Please enter your local-host"
                 />
               </div>
-                <button
-                  class="border-0 rounded-3 py-1 px-3 p-3"
-                  style={{
-                    color: "#5e1702",
-                    fontFamily: "Lato",
-                    background: "#fcad03",
-                  }}
-                  onClick={setConfig}
-                >
-                  JOIN
-                </button>
+              <button
+                class="border-0 rounded-3 py-1 px-3 p-3"
+                style={{
+                  color: "#5e1702",
+                  fontFamily: "Lato",
+                  background: "#fcad03",
+                }}
+                onClick={setConfig}
+              >
+                JOIN
+              </button>
             </div>
           </div>
         </div>

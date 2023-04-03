@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 /*import "./components/hexagon.css";*/
 import { Client } from "@stomp/stompjs";
 
-
 export default function HostGame(props) {
   const [Name, setName] = useState("");
   const [Host, setHost] = useState("");
@@ -22,7 +21,7 @@ export default function HostGame(props) {
   const [MD, setMD] = useState("1000000");
   const [RC, setRC] = useState("100");
   const [IR, setIR] = useState("5");
-  
+
   let client = props.user;
 
   function handleName(event) {
@@ -155,7 +154,6 @@ export default function HostGame(props) {
   }
   return (
     <div>
-      <Navbar key="UPBEAT" link="UPBEAT" />
       <div class="mx-5 py-4">
         <div
           style={{ alignContent: "center" }}
@@ -193,35 +191,34 @@ export default function HostGame(props) {
                     placeholder="Please enter your name"
                   />
                 </div>
-                  <div
-                    class=" d-flex justify-content-center rounded-3 overflow-hidden"
+                <div
+                  class=" d-flex justify-content-center rounded-3 overflow-hidden"
+                  style={{
+                    backgroundColor: "White",
+                    marginTop: "10px",
+                  }}
+                >
+                  <h4
                     style={{
-                      backgroundColor: "White",
-                      marginTop: "10px",
+                      fontFamily: "Lato",
+                      color: "Black",
+                      width: "130px",
+                      marginTop: "7px",
+                      marginLeft: "5px",
                     }}
                   >
-                    <h4
-                      style={{
-                        fontFamily: "Lato",
-                        color: "Black",
-                        width: "130px",
-                        marginTop: "7px",
-                        marginLeft: "5px",
-                      }}
-                    >
-                      Room Name
-                    </h4>
-                    <input
-                      onChange={handleHost}
-                      style={{
-                        width: "200px",
-                        marginLeft: "5px",
-                      }}
-                      type="text"
-                      placeholder="Please enter room name"
-                    />
-                  </div>
-                
+                    Room Name
+                  </h4>
+                  <input
+                    onChange={handleHost}
+                    style={{
+                      width: "200px",
+                      marginLeft: "5px",
+                    }}
+                    type="text"
+                    placeholder="Please enter room name"
+                  />
+                </div>
 
                 <h2
                   style={{
@@ -601,4 +598,5 @@ export default function HostGame(props) {
                   }}
                   placeholder="Configuration plan here..."
                   required
-                ></textarea> */
+                ></textarea>
+                \<Navbar key="UPBEAT" link="UPBEAT" /> */

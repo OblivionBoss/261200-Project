@@ -45,12 +45,28 @@ export default function EndGame(props) {
       {props.isWin ? (
         <div>
           <h1 style={{ fontSize: "100px", color: "#03fc6f" }}>🎉YOU WIN🎉</h1>
-          <h1 style={{ fontSize: "100px", color: props.winnerColor }}>{props.winnerName} WIN</h1>
+          <h1
+            style={{
+              fontSize: "100px",
+              color: props.winnerColor,
+              textAlign: "center",
+            }}
+          >
+            {props.winnerName} WIN
+          </h1>
         </div>
       ) : (
         <div>
-          <h1 style={{ fontSize: "100px", color: "#fc0303" }}>💥YOU LOSE💥</h1>
-          <h1 style={{ fontSize: "100px", color: props.winnerColor }}>{props.winnerName} WIN</h1>
+          <h1 style={{ fontSize: "100px", color: "purple" }}>💥YOU LOSE💥</h1>
+          <h1
+            style={{
+              fontSize: "100px",
+              color: props.winnerColor,
+              textAlign: "center",
+            }}
+          >
+            {props.winnerName} WIN
+          </h1>
         </div>
       )}
       <h3 style={{ color: "#fcad03" }}>Redirected back in {countdown}...</h3>
